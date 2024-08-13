@@ -36,15 +36,16 @@ print(api_key)
 df = pd.read_excel('out.xlsx')
 # df['maps'] = 'empty'
 
-searchdf = df[['Name','Address','City','St','Zip','mapjson']]
+searchdf = df[['Name','Address','City','St','Zip','mapobj']]
 
 # name = "Cafe Tropical"
 # address = "2900 Sunset Blvd, Los Angeles, CA 90026"
 
 # name = searchtext[0]['Name']
 
-start = 41 # Start row number in excel
-loops = 1
+start = 42 # Start row number in excel
+loops = 10
+reqcount = 0
 for i, row in enumerate(searchdf.itertuples()):
   if i+2 < start: # Add two for index to match excel sheet row number.  Adds header row and first result zero row.
     print(f"{i} continuing not yet {start}")
@@ -53,12 +54,20 @@ for i, row in enumerate(searchdf.itertuples()):
   searchrow = f"{row.Name}, {row.Address}, {row.City}, {row.St}, {row.Zip}"
   print(searchrow)
 
-  if row.mapjson != 'empty':
-      continue
+  # Limit to specific state
+  if row.St.casefold() != 'Or'.casefold():
+    print(f"Oregon {row.St.casefold()} != {'Or'.casefold()} for {searchrow}")
+    continue
 
+  # If response data already exists in row.mapobj, skip row
+  if not pd.isna(row.mapobj):
+    print(f"mapobj pd.isna() as {row.mapobj} for {searchrow}")
+    continue
+
+  print(f"searching {searchrow}")
   response = get_place_info(searchrow, api_key)
-
   print(response)
+  reqcount += 1
 
   df.at[row.Index,'mapresults'] = len(response['results'])
   
@@ -68,12 +77,16 @@ for i, row in enumerate(searchdf.itertuples()):
     df.at[row.Index,'mapaddress'] = response['results'][0]['formatted_address']
     df.at[row.Index,'maprating'] = response['results'][0]['rating']
     df.at[row.Index,'mapratecount'] = response['results'][0]['user_ratings_total']
+    df.at[row.Index,'maptypes'] = json.dumps(response['results'][0]['types'])
   
   df.at[row.Index,'mapobj'] = response
   df.at[row.Index,'mapjson'] = json.dumps(response)
 
-  if i >= loops-1:
+  if reqcount >= loops:
     break
+
+  # if i >= loops-1:
+  #   break
 
 print(df.head)
 
