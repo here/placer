@@ -1,6 +1,12 @@
-import requests
+import os
+from dotenv import load_dotenv
 
-api_key = "AIzaSyBPsgrtioZSfPYnnKPKZP2SGjmwLQ86Ego"
+import requests
+import pandas as pd
+
+load_dotenv()
+
+api_key = os.getenv('API_KEY')
 
 def get_place_info(address, api_key):
 # Base URL
@@ -22,5 +28,6 @@ def get_place_info(address, api_key):
     return None
 
 print("end of line")
+print(api_key)
 
 print(get_place_info("Cafe Tropical, 2900 Sunset Blvd, Los Angeles, CA 90026", api_key))
