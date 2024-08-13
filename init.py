@@ -44,7 +44,7 @@ searchdf = df[['Name','Address','City','St','Zip','mapobj']]
 # name = searchtext[0]['Name']
 
 start = 42 # Start row number in excel
-loops = 10
+loops = 60
 reqcount = 0
 for i, row in enumerate(searchdf.itertuples()):
   if i+2 < start: # Add two for index to match excel sheet row number.  Adds header row and first result zero row.
@@ -72,12 +72,12 @@ for i, row in enumerate(searchdf.itertuples()):
   df.at[row.Index,'mapresults'] = len(response['results'])
   
   if len(response['results']) == 1:
-    df.at[row.Index,'mapstatus'] = response['results'][0]['business_status']
-    df.at[row.Index,'mapname'] = response['results'][0]['name']
-    df.at[row.Index,'mapaddress'] = response['results'][0]['formatted_address']
-    df.at[row.Index,'maprating'] = response['results'][0]['rating']
-    df.at[row.Index,'mapratecount'] = response['results'][0]['user_ratings_total']
-    df.at[row.Index,'maptypes'] = json.dumps(response['results'][0]['types'])
+    df.at[row.Index,'mapstatus'] = response['results'][0].get('business_status')
+    df.at[row.Index,'mapname'] = response['results'][0].get('name')
+    df.at[row.Index,'mapaddress'] = response['results'][0].get('formatted_address')
+    df.at[row.Index,'maprating'] = response['results'][0].get('rating')
+    df.at[row.Index,'mapratecount'] = response['results'][0].get('user_ratings_total')
+    df.at[row.Index,'maptypes'] = json.dumps(response['results'][0].get('types'))
   
   df.at[row.Index,'mapobj'] = response
   df.at[row.Index,'mapjson'] = json.dumps(response)
