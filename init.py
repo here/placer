@@ -2,11 +2,14 @@ import os
 from dotenv import load_dotenv
 
 import requests
+import json
 import pandas as pd
 
 load_dotenv()
 
 api_key = os.getenv('API_KEY')
+inputfile = 'input.xslx'
+outputfile = 'output.json'
 
 def get_place_info(address, api_key):
 # Base URL
@@ -27,7 +30,37 @@ def get_place_info(address, api_key):
   else:
     return None
 
-print("end of line")
+print("API Key")
 print(api_key)
 
-print(get_place_info("Cafe Tropical, 2900 Sunset Blvd, Los Angeles, CA 90026", api_key))
+df = pd.read_excel('input.xlsx')
+df['maps'] = 'empty'
+
+searchdf = df[['Name','Address','City','St','Zip','maps']]
+
+# name = "Cafe Tropical"
+# address = "2900 Sunset Blvd, Los Angeles, CA 90026"
+
+# name = searchtext[0]['Name']
+
+for row in searchdf.itertuples():
+  # print(row)
+  searchrow = f"{row.Name}, {row.Address}, {row.City}, {row.St}, {row.Zip}"
+  print(searchrow)
+
+  if row.maps != 'empty':
+      continue
+
+  response = get_place_info(searchrow, api_key)
+
+  df.at[row.Index,'maps'] = json.dumps(response)
+
+  if row.Index > 10:
+    break
+
+print(df.head)
+
+df.to_excel('./out.xlsx',engine="openpyxl")
+#df.to_excel('./out.xlsx')
+
+# print(places)
