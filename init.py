@@ -33,34 +33,51 @@ def get_place_info(address, api_key):
 print("API Key")
 print(api_key)
 
-df = pd.read_excel('input.xlsx')
-df['maps'] = 'empty'
+df = pd.read_excel('out.xlsx')
+# df['maps'] = 'empty'
 
-searchdf = df[['Name','Address','City','St','Zip','maps']]
+searchdf = df[['Name','Address','City','St','Zip','mapjson']]
 
 # name = "Cafe Tropical"
 # address = "2900 Sunset Blvd, Los Angeles, CA 90026"
 
 # name = searchtext[0]['Name']
 
-for row in searchdf.itertuples():
+start = 41 # Start row number in excel
+loops = 1
+for i, row in enumerate(searchdf.itertuples()):
+  if i+2 < start: # Add two for index to match excel sheet row number.  Adds header row and first result zero row.
+    print(f"{i} continuing not yet {start}")
+    continue
   # print(row)
   searchrow = f"{row.Name}, {row.Address}, {row.City}, {row.St}, {row.Zip}"
   print(searchrow)
 
-  if row.maps != 'empty':
+  if row.mapjson != 'empty':
       continue
 
   response = get_place_info(searchrow, api_key)
 
-  df.at[row.Index,'maps'] = json.dumps(response)
+  print(response)
 
-  if row.Index > 10:
+  df.at[row.Index,'mapresults'] = len(response['results'])
+  
+  if len(response['results']) == 1:
+    df.at[row.Index,'mapstatus'] = response['results'][0]['business_status']
+    df.at[row.Index,'mapname'] = response['results'][0]['name']
+    df.at[row.Index,'mapaddress'] = response['results'][0]['formatted_address']
+    df.at[row.Index,'maprating'] = response['results'][0]['rating']
+    df.at[row.Index,'mapratecount'] = response['results'][0]['user_ratings_total']
+  
+  df.at[row.Index,'mapobj'] = response
+  df.at[row.Index,'mapjson'] = json.dumps(response)
+
+  if i >= loops-1:
     break
 
 print(df.head)
 
-df.to_excel('./out.xlsx',engine="openpyxl")
+df.to_excel('./new.xlsx',engine="openpyxl")
 #df.to_excel('./out.xlsx')
 
 # print(places)
