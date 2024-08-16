@@ -1,0 +1,65 @@
+{
+   "html_attributions" : [],
+   "results" : 
+   [
+      {
+         "business_status" : "CLOSED_PERMANENTLY",
+         "formatted_address" : "1618 Lucile Ave, Los Angeles, CA 90026, United States",
+         "geometry" : 
+         {
+            "location" : 
+            {
+               "lat" : 34.0914818,
+               "lng" : -118.2783387
+            },
+            "viewport" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 34.09283437989272,
+                  "lng" : -118.2769754701073
+               },
+               "southwest" : 
+               {
+                  "lat" : 34.09013472010728,
+                  "lng" : -118.2796751298927
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+         "icon_background_color" : "#7B9EB0",
+         "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet",
+         "name" : "Golden Saddle Cyclery",
+         "permanently_closed" : true,
+         "photos" : 
+         [
+            {
+               "height" : 4032,
+               "html_attributions" : 
+               [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/100465172319860969422\"\u003eJimmyp Pinto\u003c/a\u003e"
+               ],
+               "photo_reference" : "AelY_CtU0Owmj1uTs66OT6eSwsEg8Vps9a7BjigKHm-tssNlCLnurMK1nEl0cyur15Gd72bg295fmxr98Jmj-4lyfaTncvrFC9nT6L_3lKZTkDl-fuLboRRNMCcGGhL1DihMgXvuC8KhVcAUHwJatY51BYE1jIbdeTuOiknKErIuGB45FEw",
+               "width" : 3024
+            }
+         ],
+         "place_id" : "ChIJ87eEQkjHwoARuN0-uDlOcMA",
+         "plus_code" : 
+         {
+            "compound_code" : "3PRC+HP Los Angeles, California",
+            "global_code" : "85633PRC+HP"
+         },
+         "rating" : 4.7,
+         "reference" : "ChIJ87eEQkjHwoARuN0-uDlOcMA",
+         "types" : 
+         [
+            "clothing_store",
+            "point_of_interest",
+            "store",
+            "establishment"
+         ],
+         "user_ratings_total" : 159
+      }
+   ],
+   "status" : "OK"
+}

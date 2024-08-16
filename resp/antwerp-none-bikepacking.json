@@ -1,0 +1,70 @@
+{
+   "html_attributions" : [],
+   "results" : 
+   [
+      {
+         "business_status" : "OPERATIONAL",
+         "formatted_address" : "Paradeplein 31, 2018 Antwerpen, Belgium",
+         "geometry" : 
+         {
+            "location" : 
+            {
+               "lat" : 51.2019603,
+               "lng" : 4.4236276
+            },
+            "viewport" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 51.20324427989271,
+                  "lng" : 4.425244379892722
+               },
+               "southwest" : 
+               {
+                  "lat" : 51.20054462010727,
+                  "lng" : 4.422544720107278
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png",
+         "icon_background_color" : "#4B96F3",
+         "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/shopping_pinlet",
+         "name" : "BIKEPACKING BELGIUM",
+         "opening_hours" : 
+         {
+            "open_now" : false
+         },
+         "photos" : 
+         [
+            {
+               "height" : 4032,
+               "html_attributions" : 
+               [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/105651203996596821250\"\u003eSaskia Zaitzieff\u003c/a\u003e"
+               ],
+               "photo_reference" : "AelY_Cvj7L4uezfYacqQMIMQz7LhK923smClxiQZ9xoAFsspa4OB0b326YSDek-pC1ljTKzrhxJU51hRdDX4PSkEZ0Rk8eZ09r67il4lh1WP_2e3BVUB0fFtf-J3OjkzHw-f1Ym4fOwkQ7D2tQLR4TQEKGTN-rLhZTE7X92Hsi4KZsBrH5bK",
+               "width" : 2268
+            }
+         ],
+         "place_id" : "ChIJab0VAtb3w0cRn5R2oBcbAN0",
+         "plus_code" : 
+         {
+            "compound_code" : "6C2F+QF Antwerp, Belgium",
+            "global_code" : "9F366C2F+QF"
+         },
+         "rating" : 4.8,
+         "reference" : "ChIJab0VAtb3w0cRn5R2oBcbAN0",
+         "types" : 
+         [
+            "bicycle_store",
+            "travel_agency",
+            "clothing_store",
+            "store",
+            "point_of_interest",
+            "establishment"
+         ],
+         "user_ratings_total" : 26
+      }
+   ],
+   "status" : "OK"
+}

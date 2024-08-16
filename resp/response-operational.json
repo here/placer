@@ -1,0 +1,68 @@
+{
+   "html_attributions" : [],
+   "results" : 
+   [
+      {
+         "business_status" : "OPERATIONAL",
+         "formatted_address" : "18227 Bothell Way NE, Bothell, WA 98011, United States",
+         "geometry" : 
+         {
+            "location" : 
+            {
+               "lat" : 47.7607432,
+               "lng" : -122.2080201
+            },
+            "viewport" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 47.76206277989272,
+                  "lng" : -122.2065904201073
+               },
+               "southwest" : 
+               {
+                  "lat" : 47.75936312010727,
+                  "lng" : -122.2092900798927
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png",
+         "icon_background_color" : "#4B96F3",
+         "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/shopping_pinlet",
+         "name" : "Seattle Electric Bike - Eastside",
+         "opening_hours" : 
+         {
+            "open_now" : false
+         },
+         "photos" : 
+         [
+            {
+               "height" : 4032,
+               "html_attributions" : 
+               [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/106982980775064308854\"\u003eArianna Keele\u003c/a\u003e"
+               ],
+               "photo_reference" : "AelY_Ct91mhC3h_TM6jX7TfyctLkf8tfnge28vHv8H_wL7IrESmaaO7RPm-_4yQBf1WB63J00QgfgvADgRb_OnqKoe_JKaLzIGIklOqRx_PJJ6fMgUxXf_R9Z0UTXqwfrOya13wVaTJJAAc9AKswQ-0q3LcMAHKTc4Sd9luZQroEkRJv8vTP",
+               "width" : 3024
+            }
+         ],
+         "place_id" : "ChIJT3JDxmsOkFQRYJ7UhIWlGRQ",
+         "plus_code" : 
+         {
+            "compound_code" : "QQ6R+7Q Bothell, Washington",
+            "global_code" : "84VVQQ6R+7Q"
+         },
+         "rating" : 4.8,
+         "reference" : "ChIJT3JDxmsOkFQRYJ7UhIWlGRQ",
+         "types" : 
+         [
+            "bicycle_store",
+            "point_of_interest",
+            "store",
+            "establishment"
+         ],
+         "user_ratings_total" : 59
+      }
+   ],
+   "status" : "OK"
+}

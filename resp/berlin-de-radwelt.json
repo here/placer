@@ -1,0 +1,69 @@
+{
+   "html_attributions" : [],
+   "results" : 
+   [
+      {
+         "business_status" : "OPERATIONAL",
+         "formatted_address" : "Warschauer Str. 31, 10243 Berlin, Deutschland",
+         "geometry" : 
+         {
+            "location" : 
+            {
+               "lat" : 52.50941,
+               "lng" : 13.45076
+            },
+            "viewport" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 52.51064297989272,
+                  "lng" : 13.45207642989272
+               },
+               "southwest" : 
+               {
+                  "lat" : 52.50794332010727,
+                  "lng" : 13.44937677010728
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png",
+         "icon_background_color" : "#4B96F3",
+         "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/shopping_pinlet",
+         "name" : "Radwelt Berlin Friedrichshain",
+         "opening_hours" : 
+         {
+            "open_now" : false
+         },
+         "photos" : 
+         [
+            {
+               "height" : 720,
+               "html_attributions" : 
+               [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/117348917596054156394\"\u003eA Google User\u003c/a\u003e"
+               ],
+               "photo_reference" : "AelY_Cs_JjSJhA2zqtUhkBxDfEnIRQvDjQXT6LJnAqNsSlnef41A20-ydXP33ToMNgOj2m3ULVZu15IvlQ_HKSYAkxW10bIPpNO_lVjfqE_LNgaRvHtBN8I-qDEqd_ydBZbP-Y8ENdES56mpBZlM0eKn7DIku8qxw247ycCq4YnQLUiBhdgT",
+               "width" : 1280
+            }
+         ],
+         "place_id" : "ChIJM9AOc1tOqEcRjJMMFJnRsD4",
+         "plus_code" : 
+         {
+            "compound_code" : "GF52+Q8 Berlin, Deutschland",
+            "global_code" : "9F4MGF52+Q8"
+         },
+         "rating" : 4.8,
+         "reference" : "ChIJM9AOc1tOqEcRjJMMFJnRsD4",
+         "types" : 
+         [
+            "bicycle_store",
+            "parking",
+            "store",
+            "point_of_interest",
+            "establishment"
+         ],
+         "user_ratings_total" : 278
+      }
+   ],
+   "status" : "OK"
+}
