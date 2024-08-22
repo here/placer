@@ -47,12 +47,12 @@ for i, row in enumerate(searchdf.itertuples()):
   searchrow = f"{row.Name}, {row.Address}, {row.City}, {row.St}, {row.Zip}"
   print(searchrow)
 
-  # Limit to specific state
-  if row.St.casefold() != 'Or'.casefold():
-    print(f"Oregon {row.St.casefold()} != {'Or'.casefold()} for {searchrow}")
+  # if state not in allowlist restart loop with continue
+  if row.St.casefold() not in ['or']:
+    # print(f"State not allowed {row.St.casefold()}")
     continue
 
-  # If response data already exists in row.mapobj, skip row
+  # If data exists in row.mapobj restart loop with continue
   if not pd.isna(row.mapobj):
     print(f"mapobj pd.isna() as {row.mapobj} for {searchrow}")
     continue
@@ -85,5 +85,5 @@ for i, row in enumerate(searchdf.itertuples()):
 
 print(df.head)
 
-df.to_excel('./new.xlsx',engine="openpyxl")
+# df.to_excel('./new.xlsx',engine="openpyxl")
 # df.to_excel('./out.xlsx') # Permissions error to overwrite existing file
