@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 
 import requests
 import json
+import ast
 import pandas as pd
 
 load_dotenv()
@@ -57,12 +58,12 @@ for i, row in enumerate(searchdf.itertuples()):
   # If data exists in row.mapobj restart loop with continue
   if not pd.isna(row.mapobj):
     print(f"existing data, mapobj is not pd.isna(), {row.St}, {row.Name}")
-    continue
-
-  print(f"searching {searchrow}")
-  response = get_place_info(searchrow, api_key)
-  print(response)
-  reqcount += 1
+    response = ast.literal_eval(row.mapobj)
+  else:
+    print(f"searching {searchrow}")
+    response = get_place_info(searchrow, api_key)
+    print(response)
+    reqcount += 1
 
   df.at[row.Index,'mapresults'] = len(response['results'])
   
@@ -96,5 +97,5 @@ for i, row in enumerate(searchdf.itertuples()):
 
 print(df.head)
 
-# df.to_excel('./new.xlsx',engine="openpyxl")
+df.to_excel('./new.xlsx',engine="openpyxl")
 # df.to_excel('./out.xlsx') # Permissions error to overwrite existing file
