@@ -5,12 +5,13 @@ import requests
 import json
 import ast
 import pandas as pd
+import jellyfish
 
 load_dotenv()
 
 api_key = os.getenv('API_KEY')
 api_loops = os.getenv('API_LOOPS')
-states_allow = os.getenv('STATES_ALLOW')
+states_allow = ast.literal_eval(os.getenv('STATES_ALLOW'))
 inputfile = 'out.xlsx'
 
 def get_place_info(address, api_key):
@@ -51,7 +52,7 @@ for i, row in enumerate(searchdf.itertuples()):
   # print(searchrow)
 
   # if state not in allowlist restart loop with continue
-  if row.St.casefold() not in ['or','id','wa']:
+  if row.St.casefold() not in states_allow:
     # print(f"State not allowed {row.St.casefold()}")
     continue
 
@@ -88,6 +89,12 @@ for i, row in enumerate(searchdf.itertuples()):
   # Store full response python object and json for future use
   df.at[row.Index,'mapobj'] = response
   df.at[row.Index,'mapjson'] = json.dumps(response)
+
+  similarity = jellyfish.jaro_similarity(str(df.at[row.Index,'Address']),
+                                         str(df.at[row.Index,'mapstreet']))
+
+  print(similarity);
+  df.at[row.Index,'mapsimilarity'] = str(round(similarity,3))
 
   if reqcount >= loops:
     break
