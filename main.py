@@ -37,7 +37,7 @@ searchdf = df[['Name','Address','City','St','Zip','mapobj']]
 # address = "2900 Sunset Blvd, Los Angeles, CA 90026"
 
 start = 0 # Start row number in excel
-loops = 60
+loops = 80
 reqcount = 0
 for i, row in enumerate(searchdf.itertuples()):
   if i+2 < start: # Add two for index to match excel sheet row number.  Adds header row and first result zero row.
@@ -45,16 +45,16 @@ for i, row in enumerate(searchdf.itertuples()):
     continue
 
   searchrow = f"{row.Name}, {row.Address}, {row.City}, {row.St}, {row.Zip}"
-  print(searchrow)
+  # print(searchrow)
 
   # if state not in allowlist restart loop with continue
-  if row.St.casefold() not in ['or']:
+  if row.St.casefold() not in ['or','id','wa']:
     # print(f"State not allowed {row.St.casefold()}")
     continue
 
   # If data exists in row.mapobj restart loop with continue
   if not pd.isna(row.mapobj):
-    print(f"mapobj pd.isna() as {row.mapobj} for {searchrow}")
+    print(f"existing data, mapobj is not pd.isna(), {row.St}, {row.Name}")
     continue
 
   print(f"searching {searchrow}")
@@ -68,7 +68,16 @@ for i, row in enumerate(searchdf.itertuples()):
   if len(response['results']) == 1:
     df.at[row.Index,'mapstatus'] = response['results'][0].get('business_status')
     df.at[row.Index,'mapname'] = response['results'][0].get('name')
-    df.at[row.Index,'mapaddress'] = response['results'][0].get('formatted_address')
+    response_address = response['results'][0].get('formatted_address')
+    address_parts = response_address.split(',')
+    if len(address_parts) == 4:
+      df.at[row.Index,'mapstreet'] = address_parts[0]
+      df.at[row.Index,'mapcity'] = address_parts[1].strip()
+      df.at[row.Index,'mapstate'] = address_parts[2].split()[0].strip()
+      df.at[row.Index,'mapzip'] = address_parts[2].split()[1].strip()
+    else:
+      print('Address split unexpected {address_parts}')
+    df.at[row.Index,'mapaddress'] = response_address
     df.at[row.Index,'maprating'] = response['results'][0].get('rating')
     df.at[row.Index,'mapratecount'] = response['results'][0].get('user_ratings_total')
     df.at[row.Index,'maptypes'] = json.dumps(response['results'][0].get('types'))
@@ -85,5 +94,5 @@ for i, row in enumerate(searchdf.itertuples()):
 
 print(df.head)
 
-# df.to_excel('./new.xlsx',engine="openpyxl")
+df.to_excel('./new.xlsx',engine="openpyxl")
 # df.to_excel('./out.xlsx') # Permissions error to overwrite existing file
