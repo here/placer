@@ -8,6 +8,8 @@ import pandas as pd
 load_dotenv()
 
 api_key = os.getenv('API_KEY')
+api_loops = os.getenv('API_LOOPS')
+states_allow = os.getenv('STATES_ALLOW')
 inputfile = 'out.xlsx'
 
 def get_place_info(address, api_key):
@@ -37,7 +39,7 @@ searchdf = df[['Name','Address','City','St','Zip','mapobj']]
 # address = "2900 Sunset Blvd, Los Angeles, CA 90026"
 
 start = 0 # Start row number in excel
-loops = 80
+loops = int(api_loops)
 reqcount = 0
 for i, row in enumerate(searchdf.itertuples()):
   if i+2 < start: # Add two for index to match excel sheet row number.  Adds header row and first result zero row.
@@ -94,5 +96,5 @@ for i, row in enumerate(searchdf.itertuples()):
 
 print(df.head)
 
-df.to_excel('./new.xlsx',engine="openpyxl")
+# df.to_excel('./new.xlsx',engine="openpyxl")
 # df.to_excel('./out.xlsx') # Permissions error to overwrite existing file
