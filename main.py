@@ -1,6 +1,7 @@
-import os
 from dotenv import load_dotenv
 
+import os, shutil, glob
+from datetime import datetime
 import requests
 import json
 import ast
@@ -12,7 +13,9 @@ load_dotenv()
 api_key = os.getenv('API_KEY')
 api_loops = os.getenv('API_LOOPS')
 states_allow = ast.literal_eval(os.getenv('STATES_ALLOW'))
-inputfile = 'out.xlsx'
+timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+
+# print(f"API Key {api_key}")
 
 def get_place_info(address, api_key):
   base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json"
@@ -29,10 +32,19 @@ def get_place_info(address, api_key):
   else:
     return None
 
-print(f"API Key {api_key}")
+def get_dataframe(timestamp):
+  """Read in dataframe as df from excel using pandas as pd"""
+  backupfile = os.getenv('BACKUPFILE') + timestamp + '.xlsx'
+  inputfile = os.getenv('INPUTFILE')
 
-# Read in dataframe as df from excel using pandas as pd
-df = pd.read_excel(inputfile)
+  if not os.path.isfile(inputfile):
+    raise OSError(f'inputfile nor found as {inputfile}')
+
+  shutil.copy2(inputfile, backupfile)
+
+  return pd.read_excel(backupfile)
+
+df = get_dataframe(timestamp)
 
 searchdf = df[['Name','Address','City','St','Zip','mapobj']]
 
@@ -81,6 +93,7 @@ for i, row in enumerate(searchdf.itertuples()):
       df.at[row.Index,'mapzip'] = address_parts[2].split()[1].strip()
     else:
       print('Address split unexpected {address_parts}')
+      df.at[row.Index,'mapstreet'] = 'Address split unexpected number of commas'
     df.at[row.Index,'mapaddress'] = response_address
     df.at[row.Index,'maprating'] = response['results'][0].get('rating')
     df.at[row.Index,'mapratecount'] = response['results'][0].get('user_ratings_total')
@@ -104,5 +117,6 @@ for i, row in enumerate(searchdf.itertuples()):
 
 print(df.head)
 
+# df.to_excel(f'./new-{timestamp}.xlsx',engine="openpyxl")
 df.to_excel('./new.xlsx',engine="openpyxl")
 # df.to_excel('./out.xlsx') # Permissions error to overwrite existing file
