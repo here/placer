@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import os, shutil, glob
 from datetime import datetime
 import requests
+from urllib.parse import quote_plus
 import json
 import ast
 import pandas as pd
@@ -19,6 +20,12 @@ timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
 
 def get_place_info(address, api_key):
   base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json"
+
+  # Force search strings to quoted to avoid utf-8 error responses
+  # address = quote_plus(address)
+  
+  print('searching ' + address)
+
   # Parameters in a dictionary
   params = {
    "query": address,
@@ -30,6 +37,7 @@ def get_place_info(address, api_key):
   if response.status_code == 200:
     return response.json()
   else:
+    print(response.json())
     return None
 
 def get_dataframe(timestamp):
@@ -64,9 +72,9 @@ for i, row in enumerate(searchdf.itertuples()):
   # print(searchrow)
 
   # if state not in allowlist restart loop with continue
-  if row.St.casefold() not in states_allow:
-    # print(f"State not allowed {row.St.casefold()}")
-    continue
+  # if row.St.casefold() not in states_allow:
+  #   # print(f"State not allowed {row.St.casefold()}")
+  #   continue
 
   # If data exists in row.mapobj restart loop with continue
   if not pd.isna(row.mapobj):
